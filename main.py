@@ -1,7 +1,14 @@
 import string
 def main():
-    print(get_occur_times(get_text()))
+    print_report(get_occur_times(get_text()))
     
+def print_report(dict):
+    result_list = list(dict)
+    result_list.sort()
+    print(result_list)
+    # for i in result_list:
+        # if i.isalpha():
+            # print(f"The {i} character was found {dict[i]} times")
 
 def split_text(text):
     splited_text = text.split()
