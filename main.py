@@ -1,8 +1,7 @@
 import string
-lower_case_alphabet = list(string.ascii_lowercase)
-
 def main():
-    print(get_count_words(get_text()))
+    print(get_occur_times(get_text()))
+    
 
 def split_text(text):
     splited_text = text.split()
@@ -24,17 +23,13 @@ def lower_text(text):
     return lower_text
 
 def get_occur_times(text):
-    occur_dict = {}
-    lower = lower_text(text)
-    words = lower.split()
-    for char in lower_case_alphabet:
-        for word in words:   
-            if char in word and occur_dict[char] == 0:
-                occur_dict[char] == 1
-            elif char in word and occur_dict[char] > 0:
-                occur_dict[char] += 1
-    return occur_dict
-
-    
+    chars = {}
+    for c in text:
+        lowered = c.lower()
+        if lowered in chars:
+            chars[lowered] += 1
+        else:
+            chars[lowered] = 1
+    return chars
 
 main()
