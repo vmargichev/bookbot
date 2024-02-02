@@ -1,14 +1,28 @@
 import string
+file_path = "books/frankenstein.txt"
+
 def main():
-    print_report(get_occur_times(get_text()))
-    
-def print_report(dict):
-    result_list = list(dict)
-    result_list.sort()
-    print(result_list)
-    # for i in result_list:
-        # if i.isalpha():
-            # print(f"The {i} character was found {dict[i]} times")
+    text = get_text(file_path)
+    char_dict = get_occur_times(text)
+    char_list_sorted = chars_dict_to_sorted_list(char_dict)
+    print(f"--- Begin report of {file_path} ---")
+    print(f"{get_count_words(text)} words found in the document")
+    print()
+    for item in char_list_sorted:
+        if not item["char"].isalpha():
+            continue
+        print(f"The '{item['char']}' character was found {item['num']} times")
+    print("--- End report ---")
+
+def chars_dict_to_sorted_list(dict):
+    sorted_list = []
+    for c in dict:
+        sorted_list.append({"char" : c, "num": dict[c]})
+    sorted_list.sort(reverse=True, key=sort_on)
+    return sorted_list
+
+def sort_on(d):
+    return d["num"]    
 
 def split_text(text):
     splited_text = text.split()
@@ -21,8 +35,8 @@ def get_count_words(text):
         count += 1
     return count
 
-def get_text():
-    with open("books/frankenstein.txt") as f:
+def get_text(path):
+    with open(path) as f:
         return f.read()
 
 def lower_text(text):
